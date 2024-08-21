@@ -1,0 +1,47 @@
+{% extends "home/master.html" %}
+{% block content %}
+    <h2> My Blog Page</h2>
+    {%if messages%}
+        <ul>
+            {%for message in messages%}
+                <li>{{message}}</li>
+            {%endfor%}
+        </ul>
+    {%endif%}
+    <button><a href='/blog/addblog'>+ BLOG</a></button>
+    <h3>My List Blog</h3>
+    {%for x in page_obj%}
+        <p>{{x.title_blog}}</p>
+        <p>{{x.author_blog}}</p>
+        <p><image src="{{x.blog_image.url}}" alt ="x.title_blog"></image></p>
+        <p>{{x.content_blog}}</p>
+    {%endfor%}
+    <div class="pagination">
+        <ul class="pagination-list">
+            {% if page_obj.has_previous %}
+                <li><a href="?page=1" class="pagination-link first">&laquo; First</a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="pagination-link prev">&lsaquo; Previous</a></li>
+            {% else %}
+                <li class="disabled"><span class="pagination-link first">&laquo; First</span></li>
+                <li class="disabled"><span class="pagination-link prev">&lsaquo; Previous</span></li>
+            {% endif %}
+    
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <li class="active"><span class="pagination-link">{{ num }}</span></li>
+                {% else %}
+                    <li><a href="?page={{ num }}" class="pagination-link">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+    
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="pagination-link next">Next &rsaquo;</a></li>
+                <li><a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link last">Last &raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span class="pagination-link next">Next &rsaquo;</span></li>
+                <li class="disabled"><span class="pagination-link last">Last &raquo;</span></li>
+            {% endif %}
+        </ul>
+    </div>
+    
+{% endblock %}

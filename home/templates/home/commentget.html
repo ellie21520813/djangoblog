@@ -1,0 +1,37 @@
+{%extends "home/base.html"%}
+{%block content%}
+{% block header %} {% include 'home/header.html' %} {% endblock header %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2>Thêm Bình luận Mới</h2>
+                        {%if messages%}
+                            <ul>
+                                {%for message in messages%}
+                                    <li>{{message}}</li>
+                                {%endfor%}
+                            </ul>
+                        {%endif%}
+                    </div>
+                    <div class="card-body">
+                        <form action="{%url 'commentpost'%}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <h2 class="card-title">Blog: {{ blog.title_blog }}</h2>
+                            <p class="card-text text-muted h6">Tác giả: {{ blog.author_blog }} </p>
+                            <div class="form-group">
+                                <label for="body">{{user}}</label>
+                                <input type="text" class="form-control" id="body" name="body" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Thêm bình luận</button>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}
+
+

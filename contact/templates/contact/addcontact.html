@@ -1,0 +1,15 @@
+{%extends "home/master.html"%}
+    {%block content%}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="{%url 'postcontact'%}" method="post">
+            {%csrf_token%}
+            {{cf.as_p}}
+            <input type="submit">
+        </form>
+    {%endblock%}

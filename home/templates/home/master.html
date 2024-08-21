@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> this is my page</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/pagination.css' %}">    
+    </head>
+    <body>
+        <ul>
+            <li><a href='/home'>Home</a></li>
+            <li><a href='/blog'>Blog</a></li>
+            <li><a href='/product'>Product</a></li>
+            <li><a href='/contact'>Contact</a></li>
+            <li><a href="/usermem/logout"> Logout</a></li>
+        </ul>
+        {% block content %}
+        {% endblock  %}
+    </body>
+</html>
+

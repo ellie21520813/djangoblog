@@ -1,0 +1,79 @@
+
+{% extends "home/base.html" %}
+{% block content %}
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            font-size: 18px;
+            background-color: #fdfdfd;
+        }
+
+        .head_text {
+            color: white;
+        }
+
+        .card {
+            box-shadow: 0 16px 48px #E3E7EB;
+        }
+        
+    </style>
+    {%if messages%}
+        <ul>
+            {%for message in messages%}
+                <li>{{message}}</li>
+            {%endfor%}
+        </ul>
+    {%endif%}
+
+    {% block header %} {% include 'home/header.html' %} {% endblock header %}
+    
+    <div class="container">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8 mt-3 left">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ detail.title_blog }}</h2>
+                        <p class="card-text text-muted h6">{{ detail.author_blog }} | {{ detail.created_on}} </p>
+                        <p><img src="{{ detail.blog_image.url }}" alt="{{ detail.title_blog }}"></p>
+                        <p class="card-text">{{detail.content_blog }}</p>
+                    </div>
+                </div>
+            </div>
+            {% block sidebar %} {% include 'home/sidebar.html' %} {% endblock sidebar %}
+
+        </div>
+    </div>
+      <div class="col-md-8 card mb-4  mt-3 ">
+        <div class="card-body">
+            <h3>Thêm bình luận</h3>
+            <form method="post" style="margin-top: 1.3em;">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <label for="body">{{user}}:</label>
+                      <input type="text" class="form-control" id="body" name="body" required>
+                  </div>
+              
+                  <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>
+          </div>
+        <div class="card-body">
+            <!-- comments --> 
+           <h4>{{ comments.count }} Comments</h4>
+            {% for comment in comments %}
+            <div class="comments" style="padding: 10px;">
+              <p class="font-weight-bold"> 
+               {{ comment.name }}
+                <span class=" text-muted font-weight-normal">
+                  {{ comment.created_on }}
+                </span>
+              </p>
+                    {{ comment.body | linebreaks }}
+            </div>
+            {% endfor %}
+        </div> 
+      </div>
+    </div>
+  </div>
+
+{%endblock%}

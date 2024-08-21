@@ -1,0 +1,71 @@
+
+{% extends "home/base.html" %}
+{% block content %}
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            font-size: 18px;
+            background-color: #fdfdfd;
+        }
+
+        .head_text {
+            color: white;
+        }
+
+        .card {
+            box-shadow: 0 16px 48px #E3E7EB;
+        }
+        
+    </style>
+    {%if messages%}
+        <ul>
+            {%for message in messages%}
+                <li>{{message}}</li>
+            {%endfor%}
+        </ul>
+    {%endif%}
+
+    {% block header %} {% include 'home/header.html' %} {% endblock header %}
+    
+    <div class="container">
+        <div class="row">
+            <!-- Nút Bấm -->
+            <div class="col-md-12 mb-4 mt-5 d-flex justify-content-end">
+                <button class="btn btn-primary">
+                    <a href="/blog/addblog" class="text-white">+ BLOG</a>
+            </button>
+             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8 mt-3 left">
+                {% for x in page_obj %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ x.title_blog }}</h2>
+                        <p class="card-text text-muted h6">{{ x.author_blog }} | {{ x.created_on}} </p>
+                        <p><img src="{{ x.blog_image.url }}" alt="{{ x.title_blog }}"></p>
+                        <p class="card-text">{{x.content_blog }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4 float-right ">
+                <div class="card my-4">
+                        <h5 class="card-header">About Me</h5>
+                    <div class="card-body">
+                        <p class="card-title">Who are you: {{me}}</p>
+                        <p class="card-text">Số lượng bài đã đăng: {{count}}</p>
+                        <p class="card-text"> Gà quá gà rồi!</p>
+                        
+                    </div>
+                </div>
+            </div>                
+        </div>
+    </div>
+    {% block pagination %}
+    {% include 'home/pagination.html' %}
+    {% endblock %}
+{%endblock%}

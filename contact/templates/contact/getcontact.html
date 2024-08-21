@@ -1,0 +1,25 @@
+{%extends "home/master.html"%}
+    {%block content%}
+      {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+      {% endif %}
+    <table border =1>
+        <tr>
+          <th>ID</th>
+          <th>username</th>
+          <th>email</th>
+          <th>body</th>
+        </tr>
+        {% for x in contactlist %}
+          <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.username}}</td>
+            <td>{{x.email}}</td>
+            <td>{{x.body}}</td>
+          </tr>
+        {%endfor%}
+    {%endblock%}

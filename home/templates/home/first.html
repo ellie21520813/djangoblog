@@ -1,0 +1,58 @@
+
+{% extends "home/base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+
+    .head_text {
+        color: white;
+    }
+
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+{%if messages%}
+    <ul>
+        {%for message in messages%}
+            <li>{{message}}</li>
+        {%endfor%}
+    </ul>
+{%endif%}
+
+{% block header %} {% include 'home/header.html' %} {% endblock header %}
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for post in page_obj %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title_blog }}</h2>
+                    <p class="card-text text-muted h6">{{ post.author_blog }} | {{ post.created_on}} </p>
+                    <p><img src="{{ post.blog_image.url }}" alt="{{ post.title_blog }}"></p>
+                    <p class="card-text">{{post.content_blog|slice:":200" }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'home/sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 left">
+            <button class="btn btn-primary mb-4 mt-3">
+                <a href="{%url 'commentget' id=detail.id%}" class="text-white">+ comment</a>
+        </button>
+    </div>
+</div>
+{% block pagination %}
+    {% include 'home/pagination.html' %}
+{% endblock %}
+{%endblock%}
